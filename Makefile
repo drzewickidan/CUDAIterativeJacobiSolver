@@ -13,9 +13,9 @@
 #   Note that you can set your PATH and LD_LIBRARY_PATH variables as part of your
 # .bash_profile so that you can compile and run without using this makefile.
 
-NVCCFLAGS	:= -O3 -gencode arch=compute_75,code=sm_75
-NVCC		:= /opt/cuda/bin/nvcc
-LD_LIBRARY_PATH	:= /opt/cuda/lib64
+NVCCFLAGS	:= -O3 -gencode arch=compute_60,code=sm_60
+NVCC		:= /usr/local/cuda/bin/nvcc
+LD_LIBRARY_PATH	:= /usr/local/cuda/lib64
 
 all: jacobi_iteration
 

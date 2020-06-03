@@ -29,7 +29,7 @@ __global__ void jacobi_iteration_kernel_naive(const matrix_t A, matrix_t x, matr
 
     if (threadID < MATRIX_SIZE)
         ssd_per_thread[threadIdx.x] = (new_x.elements[threadID] - x.elements[threadID]) * (new_x.elements[threadID] - x.elements[threadID]);
-    else 
+    else
         ssd_per_thread[threadIdx.x] = 0.0;
     __syncthreads();
 
@@ -44,7 +44,7 @@ __global__ void jacobi_iteration_kernel_naive(const matrix_t A, matrix_t x, matr
         *ssd += ssd_per_thread[0];
         unlock(mutex);
     }
-    
+
     return;
 }
 
@@ -73,6 +73,6 @@ __global__ void jacobi_iteration_kernel_optimized(const matrix_t A, matrix_t x, 
 		*ssd += ssd_per_thread[0];
 		unlock(mutex);
 	}
-    
+
     return;
 }

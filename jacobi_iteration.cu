@@ -123,7 +123,7 @@ void compute_on_device(const matrix_t A, matrix_t gpu_naive_sol_x,
 	double *d_ssd;
     cudaMalloc((void**)&d_ssd, sizeof(double));
     cudaMemset(d_ssd, 0.0f, sizeof(double));
-    
+
     /* Allocate space for the lock on GPU and initialize it */
 	int *d_mutex;
     cudaMalloc((void **)&d_mutex, sizeof(int));
@@ -136,7 +136,7 @@ void compute_on_device(const matrix_t A, matrix_t gpu_naive_sol_x,
         ssd = 0.0f; cudaMemcpy(d_ssd, &ssd, sizeof(double), cudaMemcpyHostToDevice);
         if (ping_pong == 1)
             jacobi_iteration_kernel_naive<<<grid, threadBlock>>>(d_A, d_gpu_naive_sol_x, d_new_x, d_B, d_ssd, d_mutex);
-        else 
+        else
             jacobi_iteration_kernel_naive<<<grid, threadBlock>>>(d_A, d_new_x, d_gpu_naive_sol_x, d_B, d_ssd, d_mutex);
         cudaDeviceSynchronize();
         num_iter++;
@@ -151,7 +151,7 @@ void compute_on_device(const matrix_t A, matrix_t gpu_naive_sol_x,
     }
     printf("Naive Convergence achieved after %d iterations \n", num_iter);
     copy_matrix_from_device(gpu_naive_sol_x, d_gpu_naive_sol_x);
-    
+
     gettimeofday(&stop, NULL);
     naive_time = (float) (stop.tv_sec - start.tv_sec + (stop.tv_usec - start.tv_usec)/(float)1000000);
 
@@ -178,7 +178,7 @@ void compute_on_device(const matrix_t A, matrix_t gpu_naive_sol_x,
     /* Allocate space for ssd on GPU and initialize */
     cudaMalloc((void**)&d_ssd, sizeof(double));
     cudaMemset(d_ssd, 0.0f, sizeof(double));
-    
+
     /* Allocate space for the lock on GPU and initialize it */
     cudaMalloc((void **)&d_mutex, sizeof(int));
     cudaMemset(d_mutex, 0, sizeof(int));
@@ -187,7 +187,7 @@ void compute_on_device(const matrix_t A, matrix_t gpu_naive_sol_x,
         ssd = 0.0; cudaMemcpy(d_ssd, &ssd, sizeof(double), cudaMemcpyHostToDevice);
         if (ping_pong == 1)
             jacobi_iteration_kernel_optimized<<<grid, threadBlock>>>(d_A, d_gpu_opt_sol_x, d_new_x, d_B, d_ssd, d_mutex);
-        else 
+        else
             jacobi_iteration_kernel_optimized<<<grid, threadBlock>>>(d_A, d_new_x, d_gpu_opt_sol_x, d_B, d_ssd, d_mutex);
         cudaDeviceSynchronize();
         num_iter++;
@@ -327,7 +327,7 @@ matrix_t create_diagonally_dominant_matrix(unsigned int num_rows, unsigned int n
 }
 
 /* Returns transposed matrix */
-matrix_t transpose_matrix(matrix_t M) 
+matrix_t transpose_matrix(matrix_t M)
 {
     matrix_t M_transpose;
 	M_transpose.num_columns = MATRIX_SIZE;
@@ -339,6 +339,6 @@ matrix_t transpose_matrix(matrix_t M)
             M_transpose.elements[i*MATRIX_SIZE + j] = M.elements[j*MATRIX_SIZE + i];
         }
     }
-    
+
     return M_transpose;
 }

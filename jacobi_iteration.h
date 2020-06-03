@@ -14,7 +14,7 @@
 /* Matrix structure declaration */
 typedef struct matrix_s {
     unsigned int num_columns;           /* Matrix width */
-    unsigned int num_rows;              /* Matrix height */ 
+    unsigned int num_rows;              /* Matrix height */
     float *elements;
 }  matrix_t;
 
